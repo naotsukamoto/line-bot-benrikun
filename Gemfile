@@ -4,4 +4,4 @@ source "https://rubygems.org"
 # gem "rails"
 gem 'sinatra'
 gem 'line-bot-api'
-
+gem 'docomoru'
