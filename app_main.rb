@@ -10,11 +10,21 @@ def client
 end
 
 get '/' do
+  # 曜日割り振り
+  d = Date.today
+  if d.wday = 0
+    message = {
+      type: 'text',
+      text: '今日は日曜日です。'
+    }
+  elsif d.wday = 6
+    message = {
+      type: 'text',
+      text: '今日は土曜日です。'
+    }
+  end
   # task用
-  message = {
-    type: 'text',
-    text: '今日はゴミ出しの日です。'
-  }
+
   response = client.push_message("Ue03fa0344cf6da7047fc11d233eb74b3", message)
   p response
 end
