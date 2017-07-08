@@ -14,6 +14,16 @@ def client
   }
 end
 
+# task用
+message = {
+  type: 'text',
+  text: 'hello world'
+}
+
+response = client.push_message("<to>", message)
+p response
+# タスク用終了
+
 post '/callback' do
   body = request.body.read
 
@@ -32,7 +42,7 @@ post '/callback' do
           type: 'text',
           text: event.message['text']
         }
-        client.reply_message(event['replyToken'], message)
+        client.reply_message(event['replyToken'],event.source['userId'] )
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
         response = client.get_message_content(event.message['id'])
         tf = Tempfile.open("content")
