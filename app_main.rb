@@ -19,12 +19,23 @@ message = {
   type: 'text',
   text: 'hello world'
 }
-
 response = client.push_message("Ue03fa0344cf6da7047fc11d233eb74b3", message)
 p response
 # タスク用終了
 
 post '/callback' do
+
+  # task用
+  message = {
+    type: 'text',
+    text: 'hello world'
+  }
+  response = client.push_message("Ue03fa0344cf6da7047fc11d233eb74b3", message)
+  p response
+  # タスク用終了
+
+
+
   body = request.body.read
 
   signature = request.env['HTTP_X_LINE_SIGNATURE']
