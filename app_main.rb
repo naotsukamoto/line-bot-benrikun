@@ -12,12 +12,12 @@ end
 get '/' do
   # 曜日割り振り
   d = Date.today
-  if d.wday = 0
+  if d.wday == 0
     message = {
       type: 'text',
       text: '今日は日曜日です。'
     }
-  elsif d.wday = 6
+  elsif d.wday == 6
     message = {
       type: 'text',
       text: '今日は土曜日です。'
