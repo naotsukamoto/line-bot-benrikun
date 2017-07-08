@@ -2,11 +2,6 @@ require 'sinatra'
 # LINEのruby用api
 require 'line/bot'
 
-# 微小変更部分！確認用。
-get '/' do
-  "Hello world"
-end
-
 def client
   @client ||= Line::Bot::Client.new { |config|
     config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
@@ -14,27 +9,19 @@ def client
   }
 end
 
-# task用
-message = {
-  type: 'text',
-  text: 'hello world'
-}
-response = client.push_message("Ue03fa0344cf6da7047fc11d233eb74b3", message)
-p response
-# タスク用終了
-
-post '/callback' do
-
+get '/' do
   # task用
   message = {
     type: 'text',
-    text: 'hello world'
+    text: '今日はゴミ出しの日です。'
   }
   response = client.push_message("Ue03fa0344cf6da7047fc11d233eb74b3", message)
   p response
-  # タスク用終了
+end
+# タスク用終了
 
 
+post '/callback' do
 
   body = request.body.read
 
