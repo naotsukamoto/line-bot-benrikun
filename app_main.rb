@@ -20,7 +20,7 @@ message = {
   text: 'hello world'
 }
 
-response = client.push_message("<to>", message)
+response = client.push_message("Ue03fa0344cf6da7047fc11d233eb74b3", message)
 p response
 # タスク用終了
 
@@ -40,7 +40,7 @@ post '/callback' do
       when Line::Bot::Event::MessageType::Text
         message = {
           type: 'text',
-          text: event.source['userId']
+          text: event.message['text']
         }
         client.reply_message(event['replyToken'], message)
       when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
