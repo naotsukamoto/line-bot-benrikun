@@ -1,6 +1,8 @@
 require 'sinatra'
 # LINEのruby用api
 require 'line/bot'
+# 日時取得
+require 'date'
 
 def client
   @client ||= Line::Bot::Client.new { |config|
@@ -12,19 +14,52 @@ end
 get '/' do
   # 曜日割り振り
   d = Date.today
-  if d.wday == 0
+  if d.wday == 0 # 日曜の夜
     message = {
       type: 'text',
-      text: '今日は日曜日です。'
+      text: '明日からお仕事です。目覚まし掛けましたか？'
     }
-  elsif d.wday == 6
-    message = {
-      type: 'text',
-      text: '今日は土曜日です。'
-    }
+  elsif d.wday == 1 || d.wday == 4 # 月・木曜の夜
+    case d.hour
+    when 14
+      message = {
+        type: 'text',
+        text: '明日は燃えるゴミの日です'
+      }
+    when 23
+      message = {
+        type: 'text',
+        text: '今日は燃えるゴミの日です。忘れず出しましょう。'
+      }
+    end
+  elsif d.wday == 3 # 水曜の夜
+    case d.hour
+    when 14
+      message = {
+        type: 'text',
+        text: '明日は資源ゴミの日です'
+      }
+    when 23
+      message = {
+        type: 'text',
+        text: '今日は資源ゴミの日です。忘れず出しましょう。'
+      }
+    end
+  elsif d.wday == 5 # 金曜の夜
+    case d.hour
+    when 14
+      message = {
+        type: 'text',
+        text: '明日は不燃ゴミの日です'
+      }
+    when 23
+      message = {
+        type: 'text',
+        text: '今日は不燃ゴミの日です。忘れず出しましょう。'
+      }
+    end
   end
-  # task用
-
+  # 自分に送る
   response = client.push_message("Ue03fa0344cf6da7047fc11d233eb74b3", message)
   p response
 end
