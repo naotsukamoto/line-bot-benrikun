@@ -14,9 +14,9 @@ def client
   }
 end
 
-get '/test' do
-  p "hello world"
-end
+# get '/test' do
+#   p "hello world"
+# end
 
 get '/' do
 
