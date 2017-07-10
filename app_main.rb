@@ -4,6 +4,9 @@ require 'line/bot'
 # 日時取得
 require 'date'
 
+# 環境を明示する
+set :environment, :production
+
 def client
   @client ||= Line::Bot::Client.new { |config|
     config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
@@ -11,9 +14,14 @@ def client
   }
 end
 
+get '/test' do
+  p "hello world"
+end
+
 get '/' do
+
   # 曜日割り振り
-  d = Date.today
+  d = DateTime.now
   if d.wday == 0 # 日曜の夜
     message = {
       type: 'text',
